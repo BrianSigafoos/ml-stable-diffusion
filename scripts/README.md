@@ -1,18 +1,26 @@
 # Download models and run inference
 
+From an article ["ML on a Mac"](https://briansigafoos.com/ml-on-mac/) published on my blog: [https://briansigafoos.com](briansigafoos.com).
+
 ## Download models
 
-Modify `scripts/download_model.py` and run it: `python scripts/download_model.py`
+Modify `scripts/download_model.py` to choose the model you'd like to download.
+Then run it from the command line: `python scripts/download_model.py`
+
+Check the `models/<output>` folder to see the model. If it is a https://huggingface.co/coreml model (models converted to Core ML), then unzip it first.
 
 ## Run inference
 
+After downloading the model using the script above, run this in the command line to generate images for a given prompt:
+
 ```shell
-MODEL=coreml-stable-diffusion-2-1-base_original
-# MODEL=coreml-stable-diffusion-v1-5_original_compiled
 # MODEL=coreml-stable-diffusion-v1-4_original_compiled
+# MODEL=coreml-stable-diffusion-v1-5_original_compiled
+MODEL=coreml-stable-diffusion-2-1-base_original
+# MODEL=coreml-stable-diffusion-2-1-base_split_einsum
+# COMPUTE_UNITS=all      # "split_einsum" models
+COMPUTE_UNITS=cpuAndGPU  # "original" models
 OUTPUT_PATH=output_images/$MODEL
-# COMPUTE_UNITS=all # "split_einsum" models
-COMPUTE_UNITS=cpuAndGPU # on "original" models
 mkdir -p $OUTPUT_PATH
 
 PROMPT="a photograph of an astronaut riding on a horse"
